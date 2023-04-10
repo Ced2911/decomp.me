@@ -347,6 +347,14 @@ SATURN_CC = (
     + '(HOME="." dosemu -quiet -dumb -f ${COMPILER_DIR}/dosemurc -K . -E "G:\RUN_CPP.BAT dos_src.c -o src_proc.c") && '
     + '(HOME="." dosemu -quiet -dumb -f ${COMPILER_DIR}/dosemurc -K . -E "G:\RUN_CC1.BAT -quiet ${COMPILER_FLAGS} src_proc.c -o cc1.o") && '
     + '(HOME="." dosemu -quiet -dumb -f ${COMPILER_DIR}/dosemurc -K . -E "G:\RUN_AS.BAT cc1.o -o as.o") && '
+    + 'sh-elf-objcopy -Icoff-sh -Oelf32-sh as.o &&'
+    + 'cp as.o "$OUTPUT"'
+)
+
+SEGA_CC = (
+    'cat "$INPUT" | unix2dos > dos_src.c && cp -r ${COMPILER_DIR}/BIN/* . && '
+    + '(HOME="." dosemu -quiet -dumb -f ${COMPILER_DIR}/dosemurc -K . -E "GCC.EXE -nostartfiles -nostdlib ${COMPILER_FLAGS} dos_src.c -o as.o") && '
+    + 'sh-elf-objcopy -Icoff-sh -Oelf32-sh as.o &&'
     + 'cp as.o "$OUTPUT"'
 )
 
@@ -354,6 +362,36 @@ CYGNUS_2_7_96Q3 = GCCSaturnCompiler(
     id="cygnus-2.7-96Q3",
     platform=SATURN,
     cc=SATURN_CC,
+)
+SEGA_DTS_4_4_94 = GCCSaturnCompiler(
+    id="sega-dts-4-4-94.GNU",
+    platform=SATURN,
+    cc=SEGA_CC,
+)
+SEGA_DTS_4_28_94 = GCCSaturnCompiler(
+    id="sega-dts-4-28-94.GNU",
+    platform=SATURN,
+    cc=SEGA_CC,
+)
+SEGA_DTS_4_06_95 = GCCSaturnCompiler(
+    id="sega-dts-040695",
+    platform=SATURN,
+    cc=SEGA_CC,
+)
+SEGA_DTS_6_06_95 = GCCSaturnCompiler(
+    id="sega-dts-060695",
+    platform=SATURN,
+    cc=SEGA_CC,
+)
+SEGA_DTS_6_16_95 = GCCSaturnCompiler(
+    id="sega-dts-061695",
+    platform=SATURN,
+    cc=SEGA_CC,
+)
+SEGA_DTS_0396 = GCCSaturnCompiler(
+    id="sega-dts-GNUTOOLS-0396",
+    platform=SATURN,
+    cc=SEGA_CC,
 )
 
 # PS2
@@ -913,6 +951,12 @@ _all_compilers: List[Compiler] = [
     PSYQ46,
     # Saturn
     CYGNUS_2_7_96Q3,
+    SEGA_DTS_4_4_94,
+    SEGA_DTS_4_28_94,
+    SEGA_DTS_4_06_95,
+    SEGA_DTS_6_06_95,
+    SEGA_DTS_6_16_95,
+    SEGA_DTS_0396,
     # PS2
     EE_GCC29_990721,
     EE_GCC29_991111,
@@ -1097,6 +1141,36 @@ _all_presets = [
         "Castlevania: Symphony of the Night",
         CYGNUS_2_7_96Q3,
         "-O2 -m2 -fsigned-char",
+    ),
+    Preset(
+        "SEGA dts-4-4-94",
+        SEGA_DTS_4_4_94,
+        "-m2 -finline-functions -fomit-frame-pointer -O0",
+    ),
+    Preset(
+        "SEGA dts-4-28-94",
+        SEGA_DTS_4_28_94,
+        "-m2 -finline-functions -fomit-frame-pointer -O0",
+    ),
+    Preset(
+        "SEGA dts-4-06-95",
+        SEGA_DTS_4_06_95,
+        "-m2 -finline-functions -fomit-frame-pointer -O0",
+    ),
+    Preset(
+        "SEGA dts-6-06-95",
+        SEGA_DTS_6_06_95,
+        "-m2 -finline-functions -fomit-frame-pointer -O0",
+    ),
+    Preset(
+        "SEGA dts-6-16-95",
+        SEGA_DTS_6_16_95,
+        "-m2 -finline-functions -fomit-frame-pointer -O0",
+    ),
+    Preset(
+        "SEGA dts-03-96",
+        SEGA_DTS_0396,
+        "-m2 -finline-functions -fomit-frame-pointer -O0",
     ),
     # N64
     Preset("AeroGauge", IDO53, "-O2 -mips2"),

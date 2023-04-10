@@ -613,8 +613,20 @@ def download_saturn():
         url="https://github.com/sozud/saturn-compilers/archive/refs/heads/main.zip",
     )
 
+    # dts from http://techdocs.exodusemulator.com/Console/SegaSaturn/Software.html
+    download_zip(
+        url="https://github.com/Ced2911/saturn-dts-compiler/archive/refs/heads/master.zip",
+        dest_name="dts.zip"
+    )
+    shutil.move(f"{COMPILERS_DIR}/saturn-dts-compiler-master/sega-dts-4-4-94.GNU", COMPILERS_DIR)
+    shutil.move(f"{COMPILERS_DIR}/saturn-dts-compiler-master/sega-dts-4-28-94.GNU", COMPILERS_DIR)
+    shutil.move(f"{COMPILERS_DIR}/saturn-dts-compiler-master/sega-dts-040695", COMPILERS_DIR)
+    shutil.move(f"{COMPILERS_DIR}/saturn-dts-compiler-master/sega-dts-060695", COMPILERS_DIR)
+    shutil.move(f"{COMPILERS_DIR}/saturn-dts-compiler-master/sega-dts-061695", COMPILERS_DIR)
+    shutil.move(f"{COMPILERS_DIR}/saturn-dts-compiler-master/sega-dts-GNUTOOLS-0396", COMPILERS_DIR)
     shutil.move(f"{COMPILERS_DIR}/saturn-compilers-main/cygnus-2.7-96Q3", COMPILERS_DIR)
     shutil.rmtree(f"{COMPILERS_DIR}/saturn-compilers-main")
+    shutil.rmtree(f"{COMPILERS_DIR}/saturn-dts-compiler-master")
 
 
 def download_ps2():
